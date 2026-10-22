@@ -462,52 +462,104 @@ export default function NativeTreesHome() {
             </div>
           </nav>
 
-          {/* Mobile hamburger */}
-          <div className="flex lg:hidden items-center gap-3">
+          {/* Animated Hamburger Icon */}
+          <div className="flex lg:hidden items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white p-1"
+              className="text-white p-2 focus:outline-none relative w-10 h-10 flex items-center justify-center rounded-md hover:bg-white/10 transition"
               aria-label="Toggle navigation"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {mobileMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              <div className="w-5 h-4 flex flex-col justify-between">
+                <span
+                  className={`h-0.5 w-full bg-white rounded-full transition-all duration-300 transform origin-left ${
+                    mobileMenuOpen ? 'rotate-45 translate-x-0.5 -translate-y-0.5' : ''
+                  }`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-white rounded-full transition-all duration-200 ${
+                    mobileMenuOpen ? 'opacity-0 -translate-x-2' : 'opacity-100'
+                  }`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-white rounded-full transition-all duration-300 transform origin-left ${
+                    mobileMenuOpen ? '-rotate-45 translate-x-0.5 translate-y-0.5' : ''
+                  }`}
+                />
+              </div>
             </button>
           </div>
         </div>
 
-        {/* Mobile dropdown */}
-        {mobileMenuOpen && (
-          <div className="lg:hidden bg-black/95 px-6 py-4 space-y-3 text-xs uppercase font-montserrat tracking-wider border-t border-white/10 text-white">
-            <a href="#home" onClick={() => setMobileMenuOpen(false)} className="block py-1 text-[#c4c3aa]">{t.nav.home}</a>
-            <Link href="/nosotros" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.nosotros}</Link>
-            <a href="#especies" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.especies}</a>
-            <Link href="/exportacion" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.exportacion}</Link>
-            <Link href="/nuestras-obras" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.obras}</Link>
-            <Link href="/servicios" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.servicios}</Link>
-            <Link href="/cuidando-el-medioambiente" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.medioambiente}</Link>
-            <a href="#contacto" onClick={() => setMobileMenuOpen(false)} className="block py-1 hover:text-[#c4c3aa]">{t.nav.contacto}</a>
-            <div className="pt-3 border-t border-white/10 flex items-center gap-3">
-              <span className="text-[11px] text-stone-400">Idioma:</span>
+        {/* Elegant Animated Mobile Menu Accordion / Dropdown */}
+        <div
+          className={`lg:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            mobileMenuOpen ? 'max-h-[500px] opacity-100 border-t border-white/10' : 'max-h-0 opacity-0 border-t-0'
+          } bg-black/95 backdrop-blur-xl`}
+        >
+          <div className="px-6 pt-5 pb-6 space-y-3.5 text-xs uppercase font-montserrat tracking-widest text-white">
+            {[
+              { href: '#home', label: t.nav.home, active: true },
+              { href: '/nosotros', label: t.nav.nosotros },
+              { href: '#especies', label: t.nav.especies },
+              { href: '/exportacion', label: t.nav.exportacion },
+              { href: '/nuestras-obras', label: t.nav.obras },
+              { href: '/servicios', label: t.nav.servicios },
+              { href: '/cuidando-el-medioambiente', label: t.nav.medioambiente },
+              { href: '#contacto', label: t.nav.contacto },
+            ].map((item, idx) => (
+              <div
+                key={item.href}
+                className={mobileMenuOpen ? 'animate-menu-item' : ''}
+                style={{ animationDelay: `${idx * 40}ms` }}
+              >
+                {item.href.startsWith('#') ? (
+                  <a
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block py-1 transition-colors ${
+                      item.active ? 'text-[#c4c3aa] font-bold' : 'text-stone-300 hover:text-[#c4c3aa]'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block py-1 text-stone-300 hover:text-[#c4c3aa] transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+
+            <div
+              className={`pt-4 border-t border-white/10 flex items-center gap-3 ${
+                mobileMenuOpen ? 'animate-menu-item' : ''
+              }`}
+              style={{ animationDelay: '360ms' }}
+            >
+              <span className="text-[11px] text-stone-400 normal-case tracking-normal">Idioma:</span>
               <button
                 onClick={() => { setLang('es'); setMobileMenuOpen(false); }}
-                className={`text-xs px-2.5 py-1 rounded ${lang === 'es' ? 'bg-[#646945] text-white font-bold' : 'text-stone-300'}`}
+                className={`text-xs px-3 py-1 rounded transition ${
+                  lang === 'es' ? 'bg-[#646945] text-white font-bold shadow' : 'text-stone-300 hover:text-white'
+                }`}
               >
                 ES
               </button>
               <button
                 onClick={() => { setLang('en'); setMobileMenuOpen(false); }}
-                className={`text-xs px-2.5 py-1 rounded ${lang === 'en' ? 'bg-[#646945] text-white font-bold' : 'text-stone-300'}`}
+                className={`text-xs px-3 py-1 rounded transition ${
+                  lang === 'en' ? 'bg-[#646945] text-white font-bold shadow' : 'text-stone-300 hover:text-white'
+                }`}
               >
                 EN
               </button>
             </div>
           </div>
-        )}
+        </div>
       </header>
 
       {/* 🎬 HERO SLIDER: Reemplazado por video-hero-optimized.mp4 (11MB webm/mp4 comprimido sin pérdida) */}
