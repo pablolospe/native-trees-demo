@@ -340,11 +340,11 @@ export default function NativeTreesHome() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-black/85 py-1.5 shadow-lg backdrop-blur-md'
-            : 'bg-black/55 py-2.5 sm:py-3.5'
+            ? 'bg-black/90 py-2 shadow-lg backdrop-blur-md'
+            : 'bg-black/55 py-3 md:py-4'
         }`}
       >
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo identical to WP: logo-sticky.png */}
           <a href="#home" className="flex items-center shrink-0 transition hover:opacity-90">
             <Image
@@ -359,30 +359,30 @@ export default function NativeTreesHome() {
             />
           </a>
 
-          {/* WP Exact Navigation: Centrado vertical y horizontal como el original */}
-          <nav className="hidden lg:flex items-center justify-center flex-nowrap space-x-1 xl:space-x-2 font-montserrat font-bold text-[12px] tracking-[0.03em] uppercase text-white whitespace-nowrap">
+          {/* WP Exact Navigation: Alineado a la derecha como en WP, centrado vertical perfecto */}
+          <nav className="hidden lg:flex items-center flex-nowrap font-montserrat font-bold text-[12px] tracking-[0.03em] uppercase text-white whitespace-nowrap">
             <a
               href="#home"
-              className="py-3 px-2.5 text-[#c4c3aa] hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 text-[#c4c3aa] hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.home}
             </a>
             <Link
               href="/nosotros"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.nosotros}
             </Link>
 
             {/* Submenu "NUESTRAS ESPECIES" con caret */}
             <div
-              className="relative group shrink-0"
+              className="relative group shrink-0 flex items-center"
               onMouseEnter={() => setSpeciesDropdownOpen(true)}
               onMouseLeave={() => setSpeciesDropdownOpen(false)}
             >
               <a
                 href="#especies"
-                className="py-3 px-2.5 hover:text-[#646945] transition-colors inline-flex items-center gap-1 cursor-pointer shrink-0"
+                className="py-3 px-3 hover:text-[#c4c3aa] transition-colors inline-flex items-center justify-center gap-1 cursor-pointer shrink-0 leading-none"
               >
                 <span>{t.nav.especies}</span>
                 <span className="text-[10px]">▾</span>
@@ -411,50 +411,50 @@ export default function NativeTreesHome() {
 
             <Link
               href="/exportacion"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.exportacion}
             </Link>
             <Link
               href="/nuestras-obras"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.obras}
             </Link>
             <Link
               href="/servicios"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.servicios}
             </Link>
             <Link
               href="/cuidando-el-medioambiente"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.medioambiente}
             </Link>
             <a
               href="#contacto"
-              className="py-3 px-2.5 hover:text-[#646945] transition-colors shrink-0"
+              className="py-3 px-3 hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
             >
               {t.nav.contacto}
             </a>
 
             {/* Selector de idioma centrado con separador vertical idéntico a WP */}
-            <div className="relative inline-flex items-center pl-2 ml-1 border-l border-white/30 shrink-0">
+            <div className="relative inline-flex items-center pl-3 ml-2 border-l border-white/30 shrink-0 leading-none">
               <button
                 onClick={() => setLang('es')}
-                className={`py-2 px-2 cursor-pointer transition-colors ${
-                  lang === 'es' ? 'text-[#c4c3aa] font-bold' : 'text-white hover:text-[#646945]'
+                className={`py-1 px-1.5 cursor-pointer transition-colors flex items-center justify-center text-center ${
+                  lang === 'es' ? 'text-[#c4c3aa] font-bold' : 'text-white hover:text-[#c4c3aa]'
                 }`}
               >
                 ES
               </button>
-              <span className="text-white/40">|</span>
+              <span className="text-white/40 px-1">|</span>
               <button
                 onClick={() => setLang('en')}
-                className={`py-2 px-2 cursor-pointer transition-colors ${
-                  lang === 'en' ? 'text-[#c4c3aa] font-bold' : 'text-white hover:text-[#646945]'
+                className={`py-1 px-1.5 cursor-pointer transition-colors flex items-center justify-center text-center ${
+                  lang === 'en' ? 'text-[#c4c3aa] font-bold' : 'text-white hover:text-[#c4c3aa]'
                 }`}
               >
                 EN
