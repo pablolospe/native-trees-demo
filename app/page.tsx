@@ -344,7 +344,7 @@ export default function NativeTreesHome() {
             : 'bg-black/55 py-3 md:py-4'
         }`}
       >
-        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="max-w-310 mx-auto px-4 sm:px-6 flex items-center justify-between">
           {/* Logo identical to WP: logo-sticky.png */}
           <a href="#home" className="flex items-center shrink-0 transition hover:opacity-90">
             <Image
@@ -493,7 +493,7 @@ export default function NativeTreesHome() {
         {/* Elegant Animated Mobile Menu Accordion / Dropdown */}
         <div
           className={`lg:hidden overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-            mobileMenuOpen ? 'max-h-[500px] opacity-100 border-t border-white/10' : 'max-h-0 opacity-0 border-t-0'
+            mobileMenuOpen ? 'max-h-125 opacity-100 border-t border-white/10' : 'max-h-0 opacity-0 border-t-0'
           } bg-black/95 backdrop-blur-xl`}
         >
           <div className="px-6 pt-5 pb-6 space-y-3.5 text-xs uppercase font-montserrat tracking-widest text-white">
@@ -567,7 +567,7 @@ export default function NativeTreesHome() {
         id="home"
         onMouseEnter={() => setIsCarouselPaused(true)}
         onMouseLeave={() => setIsCarouselPaused(false)}
-        className="relative h-[95vh] min-h-[620px] w-full overflow-hidden bg-black flex items-center"
+        className="relative h-[95vh] min-h-155 w-full overflow-hidden bg-black flex items-center"
       >
         {t.heroSlides.map((slide, idx) => (
           <div
@@ -596,13 +596,13 @@ export default function NativeTreesHome() {
                 src={slide.bg}
                 alt={slide.title}
                 fill
-                className="object-cover object-center scale-105 transition-transform duration-[7000ms] ease-out"
+                className="object-cover object-center scale-105 transition-transform duration-7000 ease-out"
                 priority={idx === 1}
               />
             )}
 
             {/* Dark gradient overlay idéntico al Revslider de WordPress */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-black/60" />
           </div>
         ))}
 
@@ -897,7 +897,7 @@ export default function NativeTreesHome() {
             {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((c, i) => (
               <div
                 key={i}
-                className="h-16 w-44 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 flex items-center justify-center p-2 flex-shrink-0"
+                className="h-16 w-44 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 flex items-center justify-center p-2 shrink-0"
               >
                 <Image
                   src={c.image}
@@ -1065,7 +1065,7 @@ export default function NativeTreesHome() {
                     key={`${item.species.id}-${item.size}`}
                     className="flex gap-3 items-center bg-stone-50 p-3 rounded-lg border border-stone-200"
                   >
-                    <div className="relative w-14 h-14 rounded overflow-hidden flex-shrink-0 bg-stone-200">
+                    <div className="relative w-14 h-14 rounded overflow-hidden shrink-0 bg-stone-200">
                       <Image
                         src={item.species.image}
                         alt={item.species.name[lang]}
