@@ -24,7 +24,7 @@ export default function NativeTreesHome() {
   const [isCarouselPaused, setIsCarouselPaused] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const bannerRef = useRef<HTMLElement>(null);
-  const [bannerTransform, setBannerTransform] = useState({ scale: 1.15, translateY: 0 });
+  const [bannerTransform, setBannerTransform] = useState({ scale: 1.05, translateY: 0 });
 
   // Watch scroll for navbar sticky state and parallax zoom/translate on banner1
   useEffect(() => {
@@ -859,10 +859,10 @@ export default function NativeTreesHome() {
             transform: `scale(${bannerTransform.scale}) translateY(${bannerTransform.translateY}px)`,
           }}
         />
-        {/* Overlay oscuro sofisticado con gradiente para legibilidad impecable */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/70 backdrop-blur-[0.5px]" />
+        {/* Overlay mucho más suave para que la foto resalte luminosa como en la original */}
+        <div className="absolute inset-0 bg-black/25" />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <p className="font-montserrat font-extrabold text-xl sm:text-2xl md:text-3xl leading-snug uppercase tracking-wide drop-shadow-md">
+          <p className="font-montserrat font-extrabold text-xl sm:text-2xl md:text-4xl leading-snug tracking-wide drop-shadow-md">
             {t.banner1.quote}
           </p>
         </div>
@@ -893,51 +893,51 @@ export default function NativeTreesHome() {
           ))}
         </div>
 
-        {/* Sub-sección id="native" */}
-        <div id="native" className="bg-[#141712] text-white rounded-xl p-8 sm:p-14 text-center max-w-4xl mx-auto">
-          <span className="font-montserrat font-bold text-xs tracking-[0.25em] text-[#c4c3aa] uppercase block mb-2">
+        {/* Sub-sección id="native" (Diseño fiel al original: limpio sobre fondo blanco) */}
+        <div id="native" className="pt-12 text-center max-w-4xl mx-auto">
+          <span className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.25em] text-[#555] uppercase block mb-3">
             {t.about.subTag}
           </span>
-          <h2 className="font-montserrat font-extrabold text-3xl sm:text-4xl text-white uppercase mb-6">
+          <h2 className="font-montserrat font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[#1a1a1a] uppercase tracking-tight mb-8">
             {t.about.subTitle}
           </h2>
-          <p className="text-sm sm:text-base text-stone-300 font-raleway leading-relaxed mb-4 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#555555] font-raleway leading-relaxed mb-4 max-w-2xl mx-auto">
             {t.about.p1}
           </p>
-          <p className="text-sm sm:text-base text-stone-400 font-raleway leading-relaxed mb-8 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#666666] font-raleway leading-relaxed mb-10 max-w-2xl mx-auto">
             {t.about.p2}
           </p>
           <Link
             href="/nosotros"
-            className="inline-block bg-[#646945] hover:bg-[#525738] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs tracking-[0.15em] uppercase transition"
+            className="inline-block bg-[#646945] hover:bg-[#525738] text-white px-10 py-3.5 rounded-full font-montserrat font-bold text-xs tracking-[0.15em] uppercase transition shadow-sm"
           >
             {t.about.cta}
           </Link>
         </div>
       </section>
 
-      {/* 🎠 SECTION 6: NOS ELIGEN - CARROUSEL ANIMADO CON LOGOS (Infinito fluido) */}
-      <section id="clientes" className="py-16 bg-white border-t border-stone-200 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8">
-          <h2 className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.2em] uppercase text-stone-500">
+      {/* 🎠 SECTION 6: NOS ELIGEN - CARROUSEL ANIMADO CON LOGOS (Fondo blanco, título grande) */}
+      <section id="clientes" className="py-20 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+          <h2 className="font-montserrat font-extrabold text-4xl sm:text-5xl text-[#1a1a1a] tracking-tight">
             {t.clients.heading}
           </h2>
         </div>
 
         {/* Marquee carrusel animado infinito */}
         <div className="relative w-full overflow-hidden">
-          <div className="animate-marquee flex items-center gap-12 sm:gap-16">
+          <div className="animate-marquee flex items-center gap-6 sm:gap-8">
             {/* Repeat list twice for seamless infinite scroll */}
             {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((c, i) => (
               <div
                 key={i}
-                className="h-16 w-44 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100 flex items-center justify-center p-2 shrink-0"
+                className="h-16 w-36 sm:w-40 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 flex items-center justify-center p-1 shrink-0"
               >
                 <Image
                   src={c.image}
                   alt={c.name}
-                  width={160}
-                  height={65}
+                  width={150}
+                  height={60}
                   className="max-h-12 w-auto object-contain"
                 />
               </div>
@@ -946,104 +946,127 @@ export default function NativeTreesHome() {
         </div>
       </section>
 
-      {/* 📞 SECTION 7: CONTACTANOS (Formulario y datos exactos de WP) */}
-      <section id="contacto" className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="font-montserrat font-bold text-xs tracking-[0.25em] text-[#646945] uppercase block mb-1">
+      {/* 📞 SECTION 7: CONTACTANOS (Fondo verde oliva #646945 / #5c623d con inputs blancos idéntico al original) */}
+      <section id="contacto" className="py-24 bg-[#5f6542] text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.25em] text-white/90 uppercase block mb-3">
               {t.contact.tag}
             </span>
-            <h2 className="font-montserrat font-extrabold text-3xl sm:text-4xl text-[#1a1a1a] uppercase mb-2">
+            <h2 className="font-montserrat font-extrabold text-4xl sm:text-5xl text-white tracking-tight mb-4">
               {t.contact.heading}
             </h2>
-            <p className="text-xs sm:text-sm text-stone-500 font-raleway">
+            <p className="text-sm sm:text-base text-white/90 font-raleway font-normal max-w-xl mx-auto">
               {t.contact.subtitle}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Formulario (WP Contact Form 7 clone) */}
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert(lang === 'es' ? '¡Gracias! Nos pondremos en contacto a la brevedad.' : 'Thank you! We will get in touch shortly.');
-              }}
-              className="lg:col-span-7 bg-stone-50 p-8 sm:p-10 rounded-xl border border-stone-200 space-y-4"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  required
-                  placeholder={lang === 'es' ? 'Nombre' : 'Full Name'}
-                  className="w-full px-4 py-3 bg-white border border-stone-300 rounded text-xs font-raleway focus:outline-none focus:border-[#646945]"
-                />
-                <input
-                  type="email"
-                  required
-                  placeholder="Mail"
-                  className="w-full px-4 py-3 bg-white border border-stone-300 rounded text-xs font-raleway focus:outline-none focus:border-[#646945]"
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input
-                  type="tel"
-                  placeholder={lang === 'es' ? 'Teléfono' : 'Phone'}
-                  className="w-full px-4 py-3 bg-white border border-stone-300 rounded text-xs font-raleway focus:outline-none focus:border-[#646945]"
-                />
-                <input
-                  type="text"
-                  placeholder={lang === 'es' ? 'Empresa' : 'Company'}
-                  className="w-full px-4 py-3 bg-white border border-stone-300 rounded text-xs font-raleway focus:outline-none focus:border-[#646945]"
-                />
-              </div>
-              <textarea
-                rows={5}
+          {/* Formulario exacto a la captura original */}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert(lang === 'es' ? '¡Gracias! Nos pondremos en contacto a la brevedad.' : 'Thank you! We will get in touch shortly.');
+            }}
+            className="space-y-4 max-w-3xl mx-auto"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="text"
                 required
-                placeholder={lang === 'es' ? 'Mensaje...' : 'Message...'}
-                className="w-full px-4 py-3 bg-white border border-stone-300 rounded text-xs font-raleway focus:outline-none focus:border-[#646945]"
-              ></textarea>
+                placeholder={lang === 'es' ? 'Nombre' : 'Full Name'}
+                className="w-full px-5 py-3.5 bg-white text-stone-800 placeholder-stone-500 rounded-none text-sm font-raleway focus:outline-none focus:ring-2 focus:ring-white"
+              />
+              <input
+                type="email"
+                required
+                placeholder="Mail"
+                className="w-full px-5 py-3.5 bg-white text-stone-800 placeholder-stone-500 rounded-none text-sm font-raleway focus:outline-none focus:ring-2 focus:ring-white"
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="tel"
+                placeholder={lang === 'es' ? 'Teléfono' : 'Phone'}
+                className="w-full px-5 py-3.5 bg-white text-stone-800 placeholder-stone-500 rounded-none text-sm font-raleway focus:outline-none focus:ring-2 focus:ring-white"
+              />
+              <input
+                type="text"
+                placeholder={lang === 'es' ? 'Empresa' : 'Company'}
+                className="w-full px-5 py-3.5 bg-white text-stone-800 placeholder-stone-500 rounded-none text-sm font-raleway focus:outline-none focus:ring-2 focus:ring-white"
+              />
+            </div>
+            <textarea
+              rows={6}
+              required
+              placeholder={lang === 'es' ? 'Mensaje...' : 'Message...'}
+              className="w-full px-5 py-3.5 bg-white text-stone-800 placeholder-stone-500 rounded-none text-sm font-raleway focus:outline-none focus:ring-2 focus:ring-white resize-y"
+            ></textarea>
+            <div className="pt-4 text-center">
               <button
                 type="submit"
-                className="w-full sm:w-auto bg-[#646945] hover:bg-[#525738] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs tracking-[0.15em] uppercase transition shadow-md"
+                className="inline-block bg-white hover:bg-stone-100 text-[#5f6542] px-10 py-3.5 rounded-full font-montserrat font-extrabold text-xs tracking-[0.15em] uppercase transition shadow-md"
               >
                 {t.contact.btnSubmit}
               </button>
-            </form>
+            </div>
+          </form>
 
-            {/* Datos de contacto oficiales de Native Trees */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="p-6 bg-stone-50 rounded-xl border border-stone-200">
-                <h4 className="font-montserrat font-bold text-xs tracking-wider uppercase text-stone-900 mb-2">
-                  {t.contact.officesTitle}
-                </h4>
-                <p className="text-xs text-stone-600 leading-relaxed font-raleway">
-                  {t.contact.officesVal}
-                </p>
-              </div>
+          {/* Bloque moderno de Teléfonos y Canales de Contacto */}
+          <div className="mt-16 pt-10 border-t border-white/20">
+            <div className="text-center mb-8">
+              <span className="font-montserrat font-bold text-[11px] tracking-[0.25em] text-white/70 uppercase block mb-1">
+                {lang === 'es' ? 'Atención Inmediata' : 'Immediate Support'}
+              </span>
+              <h3 className="font-montserrat font-bold text-lg sm:text-xl text-white">
+                {lang === 'es' ? 'Líneas directas por WhatsApp' : 'Direct WhatsApp lines'}
+              </h3>
+            </div>
 
-              <div className="p-6 bg-stone-50 rounded-xl border border-stone-200 space-y-3">
-                <h4 className="font-montserrat font-bold text-xs tracking-wider uppercase text-stone-900 mb-2">
-                  Teléfonos de Contacto
-                </h4>
-                {t.contact.phones.map((p, idx) => (
-                  <div key={idx} className="flex items-center justify-between text-xs border-b border-stone-200 pb-2">
-                    <span className="text-stone-500">{p.area}:</span>
-                    <a
-                      href={`https://wa.me/${p.num.replace(/[^0-9]/g, '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[#646945] font-bold hover:underline"
-                    >
-                      {p.num}
-                    </a>
+            {/* Grid de tarjetas para los teléfonos */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {t.contact.phones.map((p, idx) => (
+                <a
+                  key={idx}
+                  href={`https://wa.me/${p.num.replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group bg-white/10 hover:bg-white text-white hover:text-[#5f6542] backdrop-blur-md border border-white/20 hover:border-white p-4 rounded-xl transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] font-montserrat font-bold tracking-wider uppercase opacity-80 group-hover:opacity-90">
+                      {p.area}
+                    </span>
+                    <span className="w-6 h-6 rounded-full bg-emerald-500/20 group-hover:bg-emerald-500 text-emerald-300 group-hover:text-white flex items-center justify-center text-xs transition-colors">
+                      💬
+                    </span>
                   </div>
-                ))}
-                <div className="pt-2 text-xs flex items-center justify-between">
-                  <span className="text-stone-500">Email:</span>
-                  <a href={`mailto:${t.contact.email}`} className="text-[#646945] font-bold hover:underline">
-                    {t.contact.email}
-                  </a>
-                </div>
+                  <div className="font-montserrat font-extrabold text-sm tracking-tight flex items-center justify-between">
+                    <span>{p.num}</span>
+                    <span className="text-xs opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:translate-x-0.5">
+                      &rarr;
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Fila inferior: Oficinas & Email */}
+            <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/80 font-raleway text-center sm:text-left">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📍</span>
+                <span>
+                  <strong className="font-montserrat text-white font-semibold">{t.contact.officesTitle}</strong>{' '}
+                  {t.contact.officesVal}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-base">✉️</span>
+                <a
+                  href={`mailto:${t.contact.email}`}
+                  className="font-montserrat font-semibold text-white underline underline-offset-4 hover:text-white/80 transition"
+                >
+                  {t.contact.email}
+                </a>
               </div>
             </div>
           </div>
