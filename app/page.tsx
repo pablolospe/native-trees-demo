@@ -23,13 +23,38 @@ export default function NativeTreesHome() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCarouselPaused, setIsCarouselPaused] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const bannerRef = useRef<HTMLElement>(null);
+  const [bannerTransform, setBannerTransform] = useState({ scale: 1.15, translateY: 0 });
 
-  // Watch scroll for navbar sticky state (.navbar-fixed-top and .nav-collapsed)
+  // Watch scroll for navbar sticky state and parallax zoom/translate on banner1
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 40);
+
+          if (bannerRef.current) {
+            const rect = bannerRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            // Calcule progress when banner enters viewport (-1 = entering from bottom, 1 = leaving to top)
+            if (rect.bottom > 0 && rect.top < windowHeight) {
+              const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+              // progress goes from 0 (just entering bottom) to 1 (just exiting top)
+              // Zoom effect: expands smoothly from 1.05 to 1.30
+              // Translate effect: subtle vertical movement (-40px to +40px)
+              const scale = 1.08 + progress * 0.22;
+              const translateY = (progress - 0.5) * 70;
+              setBannerTransform({ scale, translateY });
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -820,15 +845,24 @@ export default function NativeTreesHome() {
         </div>
       </section>
 
-      {/* 🌾 SECTION 4: BANNER 1 PARALLAX (id="banner1" de WP) */}
+      {/* 🌾 SECTION 4: BANNER 1 PARALLAX ZOOM & TRANSLATE (id="banner1" de WP) */}
       <section
+        ref={bannerRef}
         id="banner1"
-        className="relative py-28 px-4 text-center text-white bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: `url('/assets/hero-slide-2.webp')` }}
+        className="relative py-32 md:py-36 px-4 text-center text-white overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/60" />
+        {/* Capa de imagen con efecto de Zoom + Translate al scrollear */}
+        <div
+          className="absolute inset-0 bg-cover bg-center will-change-transform transition-transform duration-100 ease-out"
+          style={{
+            backgroundImage: `url('/assets/native.webp')`,
+            transform: `scale(${bannerTransform.scale}) translateY(${bannerTransform.translateY}px)`,
+          }}
+        />
+        {/* Overlay oscuro sofisticado con gradiente para legibilidad impecable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-black/70 backdrop-blur-[0.5px]" />
         <div className="relative z-10 max-w-4xl mx-auto">
-          <p className="font-montserrat font-extrabold text-xl sm:text-2xl md:text-3xl leading-snug uppercase tracking-wide">
+          <p className="font-montserrat font-extrabold text-xl sm:text-2xl md:text-3xl leading-snug uppercase tracking-wide drop-shadow-md">
             {t.banner1.quote}
           </p>
         </div>
