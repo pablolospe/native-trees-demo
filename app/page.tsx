@@ -883,7 +883,7 @@ export default function NativeTreesHome() {
       </section>
 
       {/* 🎠 SECTION 6: NOS ELIGEN - CARROUSEL ANIMADO CON LOGOS (Infinito fluido) */}
-      <section id="clientes" className="py-16 bg-stone-100 border-t border-stone-200 overflow-hidden">
+      <section id="clientes" className="py-16 bg-white border-t border-stone-200 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8">
           <h2 className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.2em] uppercase text-stone-500">
             {t.clients.heading}
