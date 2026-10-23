@@ -232,12 +232,16 @@ export const SERVICES_DATA: ServiceItem[] = [
 ];
 
 export const CLIENT_LOGOS: ClientLogo[] = [
-  { name: 'Puertos del Lago', image: '/assets/logos-clientes/Puertos-logo.png' },
+  { name: 'Agroactiva', image: '/assets/logos-clientes/agroactiva.jpg' },
+  { name: 'Santa Bárbara', image: '/assets/logos-clientes/santa-barbara.jpg' },
+  { name: 'Sofitel', image: '/assets/logos-clientes/sofitel.jpg' },
+  { name: 'Temaikèn', image: '/assets/logos-clientes/temaiken.jpg' },
+  { name: 'Puertos del Lago', image: '/assets/logos-clientes/Puertos-logo-2.png' },
   { name: 'EDECA', image: '/assets/logos-clientes/edeca-bn.png' },
-  { name: 'Goya', image: '/assets/logos-clientes/goya-logo.jpg' },
-  { name: 'Centro Comercial Nordelta', image: '/assets/logos-clientes/logo-centro-comercial-nordelta-bn.png' },
   { name: 'Rosetti', image: '/assets/logos-clientes/logo-rosetti-bn.jpg' },
-  { name: 'Piattelli Vineyards', image: '/assets/logos-clientes/piattelli.jpg' },
   { name: 'San Miguel', image: '/assets/logos-clientes/san-miguel-logo-bn.png' },
-  { name: 'Talar de Pacheco', image: '/assets/logos-clientes/talar-de-pacheco-logo.jpg' }
+  { name: 'Talar de Pacheco', image: '/assets/logos-clientes/talar-de-pacheco-logo.jpg' },
+  { name: 'Centro Comercial Nordelta', image: '/assets/logos-clientes/logo-centro-comercial-nordelta-bn.png' },
+  { name: 'Casino Victoria', image: '/assets/logos-clientes/casino-victoria.jpg' },
+  { name: 'GCBA', image: '/assets/logos-clientes/logo-gcba.jpg' }
 ];

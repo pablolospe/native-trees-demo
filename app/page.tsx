@@ -25,7 +25,20 @@ export default function NativeTreesHome() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const bannerRef = useRef<HTMLElement>(null);
   const [bannerTransform, setBannerTransform] = useState({ scale: 1.05, translateY: 0 });
+  const [clientIndex, setClientIndex] = useState(0);
+  const totalLogos = CLIENT_LOGOS.length;
+  // En pantallas grandes se ven 5 logos a la vez; el carrusel se desplaza de a 1 logo:
+  const maxClientIndex = Math.max(0, totalLogos - 5);
+  // 4 dots como en el video original:
+  const totalDots = 4;
 
+  // Auto-play continuo: avanza de a 1 logo suavemente
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setClientIndex((prev) => (prev >= maxClientIndex ? 0 : prev + 1));
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [maxClientIndex]);
   // Watch scroll for navbar sticky state and parallax zoom/translate on banner1
   useEffect(() => {
     let ticking = false;
@@ -892,19 +905,21 @@ export default function NativeTreesHome() {
             </div>
           ))}
         </div>
+      </section>
 
-        {/* Sub-sección id="native" (Diseño fiel al original: limpio sobre fondo blanco) */}
-        <div id="native" className="pt-12 text-center max-w-4xl mx-auto">
-          <span className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.25em] text-[#555] uppercase block mb-3">
+      {/* 🌿 SUB-SECTION id="native": SOBRE NATIVE TREES (Fondo verde claro suave idéntico al original) */}
+      <section id="native" className="py-24 bg-[#f1f4ec] border-y border-[#e2e7dc]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <span className="font-montserrat font-bold text-xs sm:text-sm tracking-[0.25em] text-[#646945] uppercase block mb-3">
             {t.about.subTag}
           </span>
           <h2 className="font-montserrat font-extrabold text-4xl sm:text-5xl lg:text-6xl text-[#1a1a1a] uppercase tracking-tight mb-8">
             {t.about.subTitle}
           </h2>
-          <p className="text-sm sm:text-base text-[#555555] font-raleway leading-relaxed mb-4 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#4a4f3b] font-raleway leading-relaxed mb-4 max-w-2xl mx-auto">
             {t.about.p1}
           </p>
-          <p className="text-sm sm:text-base text-[#666666] font-raleway leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#5c614d] font-raleway leading-relaxed mb-10 max-w-2xl mx-auto">
             {t.about.p2}
           </p>
           <Link
@@ -916,32 +931,66 @@ export default function NativeTreesHome() {
         </div>
       </section>
 
-      {/* 🎠 SECTION 6: NOS ELIGEN - CARROUSEL ANIMADO CON LOGOS (Fondo blanco, título grande) */}
+      {/* 🎠 SECTION 6: NOS ELIGEN - CARROUSEL QUE AVANZA DE A 1 LOGO (Idéntico a la web original) */}
       <section id="clientes" className="py-20 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
           <h2 className="font-montserrat font-extrabold text-4xl sm:text-5xl text-[#1a1a1a] tracking-tight">
             {t.clients.heading}
           </h2>
         </div>
 
-        {/* Marquee carrusel animado infinito */}
-        <div className="relative w-full overflow-hidden">
-          <div className="animate-marquee flex items-center gap-6 sm:gap-8">
-            {/* Repeat list twice for seamless infinite scroll */}
-            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((c, i) => (
-              <div
-                key={i}
-                className="h-16 w-36 sm:w-40 relative grayscale hover:grayscale-0 transition-all duration-300 opacity-80 hover:opacity-100 flex items-center justify-center p-1 shrink-0"
-              >
-                <Image
-                  src={c.image}
-                  alt={c.name}
-                  width={150}
-                  height={60}
-                  className="max-h-12 w-auto object-contain"
+        {/* Carrusel que desliza de a 1 logo suavemente (Owl Carousel clone) */}
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="overflow-hidden py-4">
+            <div
+              className="flex transition-transform duration-600 ease-out"
+              style={{
+                transform: `translateX(-${clientIndex * (100 / 5)}%)`,
+              }}
+            >
+              {CLIENT_LOGOS.map((c, i) => (
+                <div
+                  key={i}
+                  className="w-1/2 sm:w-1/3 md:w-1/5 shrink-0 px-4 flex items-center justify-center"
+                >
+                  <div className="h-20 w-full flex items-center justify-center p-2 transition-transform duration-300 hover:scale-105">
+                    <Image
+                      src={c.image}
+                      alt={c.name}
+                      width={160}
+                      height={70}
+                      className="max-h-14 w-auto object-contain"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Dots de paginación idénticos al video (4 dots) */}
+          <div className="flex justify-center items-center gap-2.5 mt-8">
+            {Array.from({ length: totalDots }).map((_, idx) => {
+              // Calcular qué dot corresponde a la posición actual
+              const activeDot = Math.min(
+                totalDots - 1,
+                Math.floor((clientIndex / (maxClientIndex || 1)) * totalDots)
+              );
+              return (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    const targetIndex = Math.round((idx / (totalDots - 1)) * maxClientIndex);
+                    setClientIndex(targetIndex);
+                  }}
+                  aria-label={`Grupo ${idx + 1}`}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    activeDot === idx
+                      ? 'bg-[#646945] scale-125'
+                      : 'bg-stone-300 hover:bg-stone-400'
+                  }`}
                 />
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
