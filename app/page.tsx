@@ -376,10 +376,8 @@ export default function NativeTreesHome() {
     <div className="min-h-screen bg-white text-[#333333] font-raleway selection:bg-[#646945] selection:text-white">
       {/* 🧭 WP-IDENTICAL NAVBAR: Pegada exactamente al top (top-0) */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'bg-black/90 py-2 shadow-lg backdrop-blur-md'
-            : 'bg-black/55 py-3 md:py-4'
+        className={`fixed top-0 left-0 right-0 z-50 min-h-15 flex flex-col justify-center transition-colors duration-300 ${
+          isScrolled ? 'bg-[#1b2530] shadow-lg' : 'bg-[#212d39]'
         }`}
       >
         <div className="max-w-310 mx-auto px-4 sm:px-6 flex items-center justify-between">
@@ -390,15 +388,13 @@ export default function NativeTreesHome() {
               alt="Logo"
               width={75}
               height={75}
-              className={`w-auto object-contain transition-all duration-300 ${
-                isScrolled ? 'h-9 sm:h-11' : 'h-11 sm:h-14'
-              }`}
+              className="w-auto object-contain h-11"
               priority
             />
           </a>
 
           {/* WP Exact Navigation: Alineado a la derecha como en WP, centrado vertical perfecto */}
-          <nav className="hidden lg:flex items-center flex-nowrap font-montserrat font-bold text-[12px] tracking-[0.03em] uppercase text-white whitespace-nowrap">
+          <nav className="hidden lg:flex items-center flex-nowrap font-(family-name:--font-poppins) font-semibold text-[11px] tracking-[0.06em] uppercase text-white whitespace-nowrap">
             <a
               href="#home"
               className="py-3 px-3 text-[#c4c3aa] hover:text-[#c4c3aa] transition-colors shrink-0 flex items-center justify-center text-center leading-none"
@@ -605,7 +601,7 @@ export default function NativeTreesHome() {
         id="home"
         onMouseEnter={() => setIsCarouselPaused(true)}
         onMouseLeave={() => setIsCarouselPaused(false)}
-        className="relative h-[95vh] min-h-155 w-full overflow-hidden bg-black flex items-center"
+        className="relative mt-15 h-[calc(100vh-60px)] min-h-130 w-full overflow-hidden bg-black flex items-center"
       >
         {t.heroSlides.map((slide, idx) => (
           <div
@@ -640,73 +636,79 @@ export default function NativeTreesHome() {
             )}
 
             {/* Dark gradient overlay idéntico al Revslider de WordPress */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/40 to-black/60" />
+            <div className="absolute inset-0 bg-black/50" />
           </div>
         ))}
 
         {/* Slide Foreground Content */}
-        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white flex flex-col items-center">
-          {activeSlide === 0 && (
-            <div className="relative w-48 sm:w-64 h-16 sm:h-20 mb-3 animate-fade-in">
+        <div className="relative z-20 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center text-white flex flex-col items-center font-(family-name:--font-poppins)">
+          {activeSlide === 0 ? (
+            <div
+              key="logo-block"
+              className="relative w-[min(600px,92vw)] aspect-768/311 animate-fade-in @container"
+            >
               <Image
                 src="/assets/logo-native.png"
-                alt="Native Trees Logo"
+                alt="Native Trees"
                 fill
-                className="object-contain drop-shadow-md"
+                className="object-contain"
                 priority
               />
+              <p className="absolute left-[32%] top-[14%] text-left font-medium text-[3.6cqw] leading-[1.2] tracking-[0.08em] text-[#f9f1da] uppercase whitespace-pre-line">
+                {t.heroSlides[0].tagline}
+              </p>
             </div>
+          ) : (
+            <>
+              <p className="font-medium text-xs sm:text-sm md:text-base tracking-[0.2em] text-[#d1d8a7] uppercase mb-3 drop-shadow whitespace-pre-line">
+                {t.heroSlides[activeSlide].tagline}
+              </p>
+              <h1 className="font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight uppercase leading-[1.1] mb-5 max-w-4xl drop-shadow-lg whitespace-pre-line">
+                {t.heroSlides[activeSlide].title}
+              </h1>
+            </>
           )}
 
-          {/* Tagline (Raleway 500) */}
-          <p className="font-raleway font-semibold text-xs sm:text-sm md:text-base tracking-[0.2em] text-[#d1d8a7] uppercase mb-3 drop-shadow whitespace-pre-line">
-            {t.heroSlides[activeSlide].tagline}
-          </p>
-
-          {/* Slide Heading (Montserrat 700) */}
-          <h1 className="font-montserrat font-extrabold text-3xl sm:text-5xl md:text-6xl text-white tracking-tight uppercase leading-[1.1] mb-5 max-w-4xl drop-shadow-lg whitespace-pre-line">
-            {t.heroSlides[activeSlide].title}
-          </h1>
-
-          {/* Subtitle (Raleway 400) */}
-          <p className="font-raleway font-normal text-sm sm:text-base md:text-lg text-stone-200 max-w-2xl leading-relaxed mb-8 drop-shadow">
+          <p
+            className={`font-medium text-sm sm:text-lg text-white max-w-140 leading-snug drop-shadow ${
+              activeSlide === 0 ? '-mt-6 sm:-mt-9' : 'mt-0'
+            }`}
+          >
             {t.heroSlides[activeSlide].subtitle}
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="#services"
-              className="bg-[#646945] hover:bg-[#525738] text-white px-8 py-3.5 rounded-full font-montserrat font-bold text-xs tracking-[0.15em] uppercase transition transform hover:-translate-y-0.5 shadow-lg shadow-black/50"
-            >
-              {t.heroSlides[activeSlide].cta}
-            </a>
-          </div>
+          <a
+            href="#services"
+            className="mt-12 bg-[#6b6e48] hover:bg-[#5a5d3b] text-white px-6 py-3 rounded-full font-semibold text-[13px] tracking-[0.02em] uppercase transition-colors shadow-md shadow-black/30"
+          >
+            {t.heroSlides[activeSlide].cta}
+          </a>
         </div>
 
         {/* Carousel Prev/Next Arrows */}
         <button
           onClick={() => setActiveSlide((prev) => (prev === 0 ? t.heroSlides.length - 1 : prev - 1))}
-          className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-black/80 text-white border border-white/20 flex items-center justify-center transition"
+          className="absolute left-5 top-1/2 -translate-y-1/2 z-30 w-7 h-8 bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Slide anterior"
         >
-          &#10094;
+          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M6.5 1 1.5 6l5 5" /></svg>
         </button>
         <button
           onClick={() => setActiveSlide((prev) => (prev === t.heroSlides.length - 1 ? 0 : prev + 1))}
-          className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-black/40 hover:bg-black/80 text-white border border-white/20 flex items-center justify-center transition"
+          className="absolute right-5 top-1/2 -translate-y-1/2 z-30 w-7 h-8 bg-black/55 hover:bg-black/80 text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Slide siguiente"
         >
-          &#10095;
+          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="m1.5 1 5 5-5 5" /></svg>
         </button>
 
         {/* Slide Indicators / Dots */}
-        <div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-3.5">
           {t.heroSlides.map((_, i) => (
             <button
               key={i}
               onClick={() => setActiveSlide(i)}
-              className={`h-2.5 rounded-full transition-all duration-300 ${
-                activeSlide === i ? 'w-8 bg-[#c4c3aa]' : 'w-2.5 bg-white/40 hover:bg-white/80'
+              className={`w-2 h-2 rounded-full border border-white transition-colors cursor-pointer ${
+                activeSlide === i ? 'bg-white' : 'bg-transparent hover:bg-white/60'
               }`}
               aria-label={`Slide ${i + 1}`}
             />
